@@ -43,8 +43,8 @@ module.exports.datastores = {
     // url: 'mysql://hgMix7VrH0:VLDGqurCDh@remotemysql.com/hgMix7VrH0',
     // adapter: 'sails-mysql',
     adapter: 'sails-mysql',
-     url: 'mysql://h9ubwr0wv583f1oy:n7yen21yow5k0dxj@dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/hq3xymagq151m3u3',
-     ssl: true
+    url: 'mysql://ifxabuww831zb4mr:ddvhyklybn92az95@j21q532mu148i8ms.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/npuxmxui0rd1lgwo',
+    ssl: true
     //url: 'mysql://jose:123456@locomproaqui.com/ishop',
   },
 
