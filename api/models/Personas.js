@@ -13,21 +13,8 @@ module.exports = {
         model: 'roles',
         required: true
     },
-    idBanco:{
-        model: 'bancos'
-    },
-    conteoPuntos:{
-        type: 'integer',
-        defaultsTo: 0
-    },
     idToken:{
         type: 'string'
-    },
-    idGenero:{
-        model: 'generos'
-    },
-    idCiudad:{
-        model: 'ciudad'
     },
     cedula:{
         type: 'string'
@@ -57,7 +44,7 @@ module.exports = {
     },
     idFoto:{
         type: 'string',
-        defaultsTo: 'default-user.png'
+        defaultsTo: './assets/perfil.png'
     },
     estado:{
         type: 'number',  //0 activo - 1 eliminado 

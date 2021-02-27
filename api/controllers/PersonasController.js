@@ -36,7 +36,6 @@ Procedures.register = async(req, res)=>{
   user = await Personas.create(params).fetch()
   user = await Personas.findOne({id: user.id}).populate('rol');
   if(!user) return res.badRequest(err);
-  let rrr = await Procedures.crearPuntosResumen( user );
   return res.ok({status: 200, data: user});
 }
 

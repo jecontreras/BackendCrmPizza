@@ -16,7 +16,7 @@ module.exports = {
         type: 'string'
     },
     idPais:{
-        model: 'pais'
+        type: 'string'
     },
     estado:{
         type: 'number',  //0 activo - 1 eliminado 

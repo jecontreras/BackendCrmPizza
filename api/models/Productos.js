@@ -17,80 +17,22 @@ module.exports = {
         type: 'string',
         required: true
     },
-    idSubCategoria: {
-        model: 'subcategoria',
-        required: true
+    precio: {
+        type: 'integer'
     },
-    idEmpresa: {
-        model: 'empresas'
+    estado: {
+        type: 'boolean',
+        defaultsTo: true
     },
-    cantidad:{
-        type: 'integer',
-        defaultsTo: 0
-    },
-    precioVenta:{
-        type: 'integer',
-        defaultsTo: 0
-    },
-    precioCompra:{
-        type: 'integer',
-        defaultsTo: 0
-    },
-    precioOferta:{
-        type: 'integer',
-        defaultsTo: 0
-    },
-    detalle:{
+    foto:{
         type: 'string'
     },
-    subasta: {
-        type: 'boolean'
+    categoria:{
+        model: 'categoria'
     },
-    idPeso: {
-        type: 'integer'
-    },
-    marca: {
-        model: 'marca'
-    },
-    genero: {
-        model: 'generos' 
-    },
-    image: {
-        type: 'string',
-        defaultsTo: 'default.jpg'
-    },
-    image_galery: {
-        collection: 'multimedia',
-        via: 'producto'
-    },
-    ranking: {
-        type: 'integer',
-        defaultsTo: 5
-    },
-    ordenamiento: {
-        type: 'integer',
-        defaultsTo: 0
-    },
-    product_code: {
-        type: 'string',
-        defaultsTo: '16132243'
-    },
-    comision:{
-        type: 'integer'
-    },
-    estado:{
-        type: 'number',  //0 activo - 1 eliminado 
-        defaultsTo: 0
-    },
-    tallas:{
-        type: 'json',
-        defaultsTo: []
-    },
-    colores:{
-        type: 'json',
-        defaultsTo: []
+    codigo:{
+        type: 'string'
     }
-
   },
 
 };

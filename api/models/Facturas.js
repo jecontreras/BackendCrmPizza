@@ -8,9 +8,8 @@
 module.exports = {
 
   attributes: {
-    idCliente:{
-        model: 'clientes',
-        required: true
+    cliente:{
+        type: 'string'
     },
     idVendedor:{
         model: 'personas',
@@ -32,45 +31,11 @@ module.exports = {
         type: 'integer',
         defaultsTo: 0
     },
-    ciudadCliente:{ 
-        type: 'string',
-        required: true
-    },
-    emailCliente:{
-        type: 'string',
-    },
-    cedulaCliente:{
-        type: 'string',
-        required: true
-    },
-    numeroCliente:{
-        type: 'string',
-        required: true
-    },
-    barrioCliente:{
-        type: 'string'
-    },
-    emailVendedor:{
-        type: 'string',
-    },
-    cedulaVendedor:{
-        type: 'string',
-        required: true
-    },
-    direccionCliente:{
-        type: 'string',
-    },
     fecha_pedido:{
         type: 'string',
         required: true
     },
     detalles:{
-        type: 'string'
-    },
-    idRemesa:{
-        type: 'string'
-    },
-    empresaTrans:{
         type: 'string'
     }
 

@@ -14,10 +14,6 @@ module.exports = {
     estado:{
         type: 'number',  //0 activo - 1 eliminado 
         defaultsTo: 0
-    },
-    subCategorias: {
-      collection: 'subcategoria',
-      via: 'idCategoria'
     }
   },
 
