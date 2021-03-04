@@ -11,6 +11,18 @@ module.exports = {
     cliente:{
         type: 'string'
     },
+    direccionCliente:{
+        type: 'string'
+    },
+    celularCliente:{
+        type: 'string'
+    },
+    domicilio:{
+        type: 'boolean'
+    },
+    mesa:{
+        type: 'boolean'
+    },
     idVendedor:{
         model: 'personas',
         required: true
