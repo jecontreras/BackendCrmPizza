@@ -17,6 +17,10 @@ module.exports = {
         type: 'integer',
         required: true
     },
+    create:{
+        type: 'string',
+        required: true
+    },
     cantidad:{
       type: 'integer',
       required: true

@@ -39,6 +39,9 @@ module.exports = {
         type: 'integer',
         defaultsTo: 0
     },
+    create:{
+        type: 'string'
+    },
     comision:{
         type: 'integer',
         defaultsTo: 0
