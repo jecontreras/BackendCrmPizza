@@ -82,7 +82,7 @@ Procedures.update = async( req, res )=>{
 Procedures.resumen = async( req, res )=>{
     let params = req.allParams();
     let resultado = Array();
-    resultado = await FacturasArticulos.find( { where: { create: params.where.fecha, estado: 1 } } ).limit( 10000 );
+    resultado = await FacturasArticulos.find( { where: { /*create: params.where.fecha */ } } ).limit( 10000 ).populate('producto');
     let result = Object({
         pizzas: [],
         gaceosas: [],
@@ -92,46 +92,63 @@ Procedures.resumen = async( req, res )=>{
         valorlasana: 0,
         valorTotal: 0
     });
+    //console.log("***************", resultado );
     for( let row of resultado ){
-        if( row.categoria == 1 ){
-            let filtro = _.indexOf( result.pizzas, [ 'titulo', row.titulo ] );
-            if( filtro >= 0 ){
-                result.pizzas[ filtro ].cantidad++;
-            }else result.pizzas.push( {
-                titulo: row.titulo,
-                cantidad: 1,
-                precio: row.precio,
-                categoria: row.categoria
-            });
-            result.valorPizzas+= row.precio * row.cantidad;
-        }
+        try {
+            if( row.producto.categoria == 1 ){
+                let filtro = _.findIndex( result.pizzas, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.pizzas[ filtro ].cantidad++;
+                    result.pizzas[ filtro ].precioTotal= result.pizzas[ filtro ].cantidad * result.pizzas[ filtro ].precio;
+                }else result.pizzas.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzas+= row.precio * row.cantidad;
+            }
 
-        if( row.categoria == 2 ){
-            let filtro = _.indexOf( result.gaceosas, [ 'titulo', row.titulo ] );
-            if( filtro >= 0 ){
-                result.gaceosas[ filtro ].cantidad++;
-            }else result.gaceosas.push( {
-                titulo: row.titulo,
-                cantidad: 1,
-                precio: row.precio,
-                categoria: row.categoria
-            });
-            result.valorGaceosa+= row.precio * row.cantidad;
-        }
+            if( row.producto.categoria == 2 ){
+                let filtro = _.findIndex( result.gaceosas, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.gaceosas[ filtro ].cantidad++;
+                    result.gaceosas[ filtro ].precioTotal= result.gaceosas[ filtro ].cantidad * result.gaceosas[ filtro ].precio;
+                }else result.gaceosas.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzas+= row.precio * row.cantidad;
+            }
 
-        if( row.categoria == 3 ){
-            let filtro = _.indexOf( result.lasana, [ 'titulo', row.titulo ] );
-            if( filtro >= 0 ){
-                result.lasana[ filtro ].cantidad++;
-            }else result.lasana.push( {
-                titulo: row.titulo,
-                cantidad: 1,
-                precio: row.precio,
-                categoria: row.categoria
-            });
-            result.valorlasana+= row.precio * row.cantidad;
+            if( row.producto.categoria == 3 ){
+                let filtro = _.findIndex( result.lasana, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.lasana[ filtro ].cantidad++;
+                    result.lasana[ filtro ].precioTotal= result.lasana[ filtro ].cantidad * result.lasana[ filtro ].precio;
+                }else result.lasana.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzas+= row.precio * row.cantidad;
+            }
+            result.valorTotal = result.valorPizzas + result.valorGaceosa + result.valorlasana;
+        } catch (error) {
+            continue;
         }
-        result.valorTotal = result.valorPizzas + result.valorGaceosa + result,valorlasana;
     }
     return res.status( 200 ).send( result );
 
