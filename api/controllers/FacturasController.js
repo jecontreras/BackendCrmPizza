@@ -82,7 +82,7 @@ Procedures.update = async( req, res )=>{
 Procedures.resumen = async( req, res )=>{
     let params = req.allParams();
     let resultado = Array();
-    resultado = await FacturasArticulos.find( { where: { /*create: params.where.fecha */ } } ).limit( 10000 ).populate('producto');
+    resultado = await FacturasArticulos.find( { where: { create: params.where.fecha } } ).limit( 10000 ).populate('producto');
     let result = Object({
         pizzas: [],
         gaceosas: [],

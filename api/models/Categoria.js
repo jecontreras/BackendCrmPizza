@@ -14,6 +14,10 @@ module.exports = {
     estado:{
         type: 'number',  //0 activo - 1 eliminado 
         defaultsTo: 0
+    },
+    ordenar:{
+      type: 'number',
+      defaultsTo: 0
     }
   },
 
