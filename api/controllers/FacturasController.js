@@ -126,7 +126,7 @@ Procedures.resumen = async( req, res )=>{
                     categoria: row.producto.categoria,
                     precioTotal: row.cantidad * row.precio
                 });
-                result.valorPizzas+= row.precio * row.cantidad;
+                result.valorGaceosa+= row.precio * row.cantidad;
             }
 
             if( row.producto.categoria == 3 ){
@@ -143,7 +143,7 @@ Procedures.resumen = async( req, res )=>{
                     categoria: row.producto.categoria,
                     precioTotal: row.cantidad * row.precio
                 });
-                result.valorPizzas+= row.precio * row.cantidad;
+                result.valorlasana+= row.precio * row.cantidad;
             }
             result.valorTotal = result.valorPizzas + result.valorGaceosa + result.valorlasana;
         } catch (error) {
