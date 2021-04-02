@@ -82,12 +82,19 @@ Procedures.update = async( req, res )=>{
 Procedures.resumen = async( req, res )=>{
     let params = req.allParams();
     let resultado = Array();
-    resultado = await FacturasArticulos.find( { where: { create: params.where.fecha } } ).limit( 10000 ).populate('producto');
+    resultado = await FacturasArticulos.find( { where: { create: params.where.create } } ).limit( 10000 ).populate('producto');
+    console.log("****", resultado.length)
     let result = Object({
         pizzas: [],
+        pizzasGrande: [],
+        pizzasMediana: [],
+        pizzeta: [],
         gaceosas: [],
         lasana: [],
         valorPizzas: 0,
+        valorPizzasGrande: 0,
+        valorPizzasMediana: 0,
+        valorPizzetas: 0,
         valorGaceosa: 0,
         valorlasana: 0,
         valorTotal: 0
@@ -95,6 +102,7 @@ Procedures.resumen = async( req, res )=>{
     //console.log("***************", resultado );
     for( let row of resultado ){
         try {
+            /*  Pizza porcion */
             if( row.producto.categoria == 1 ){
                 let filtro = _.findIndex( result.pizzas, [ 'id', row.producto.id ] );
                 //console.log("******++index", filtro)
@@ -111,7 +119,61 @@ Procedures.resumen = async( req, res )=>{
                 });
                 result.valorPizzas+= row.precio * row.cantidad;
             }
+            /* Pizza Grande */
+            if( row.producto.categoria == 6 ){
+                let filtro = _.findIndex( result.pizzasGrande, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.pizzasGrande[ filtro ].cantidad++;
+                    result.pizzasGrande[ filtro ].precioTotal= result.pizzasGrande[ filtro ].cantidad * result.pizzasGrande[ filtro ].precio;
+                }else result.pizzasGrande.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzasGrande+= row.precio * row.cantidad;
+            }
 
+            /* Pizza Mediana */
+            if( row.producto.categoria == 4 ){
+                let filtro = _.findIndex( result.pizzasMediana, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.pizzasMediana[ filtro ].cantidad++;
+                    result.pizzasMediana[ filtro ].precioTotal= result.pizzasMediana[ filtro ].cantidad * result.pizzasMediana[ filtro ].precio;
+                }else result.pizzasMediana.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzasMediana+= row.precio * row.cantidad;
+            }
+
+            /* Pizzetas */
+            if( row.producto.categoria == 5 ){
+                let filtro = _.findIndex( result.pizzeta, [ 'id', row.producto.id ] );
+                //console.log("******++index", filtro)
+                if( filtro >= 0 ){
+                    result.pizzeta[ filtro ].cantidad++;
+                    result.pizzeta[ filtro ].precioTotal= result.pizzeta[ filtro ].cantidad * result.pizzeta[ filtro ].precio;
+                }else result.pizzeta.push( {
+                    titulo: row.producto.titulo,
+                    id: row.producto.id,
+                    cantidad: 1,
+                    precio: row.precio,
+                    categoria: row.producto.categoria,
+                    precioTotal: row.cantidad * row.precio
+                });
+                result.valorPizzetas+= row.precio * row.cantidad;
+            }
+
+            /** Gaceosa */
             if( row.producto.categoria == 2 ){
                 let filtro = _.findIndex( result.gaceosas, [ 'id', row.producto.id ] );
                 //console.log("******++index", filtro)
@@ -128,7 +190,7 @@ Procedures.resumen = async( req, res )=>{
                 });
                 result.valorGaceosa+= row.precio * row.cantidad;
             }
-
+            /**  Lasaña */
             if( row.producto.categoria == 3 ){
                 let filtro = _.findIndex( result.lasana, [ 'id', row.producto.id ] );
                 //console.log("******++index", filtro)
@@ -145,7 +207,7 @@ Procedures.resumen = async( req, res )=>{
                 });
                 result.valorlasana+= row.precio * row.cantidad;
             }
-            result.valorTotal = result.valorPizzas + result.valorGaceosa + result.valorlasana;
+            result.valorTotal = result.valorPizzas + result.valorPizzasGrande + result.valorPizzasMediana + result.valorPizzetas + result.valorGaceosa + result.valorlasana;
         } catch (error) {
             continue;
         }
